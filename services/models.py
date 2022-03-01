@@ -15,19 +15,6 @@ class Proposal(models.Model):
         return self.name
 
 
-class PortfolioProduct(models.Model):
-    category = models.CharField(
-        max_length=255, null=False, blank=False, verbose_name="Category", choices=(('Design', 'Design'), ('Development',
-                                                                                                          'Development'), ('Design & Development', 'Design & Development'), ('Growth', 'Growth')))
-    aboutProduct = models.TextField(
-        null=False, blank=False, verbose_name="About Product")
-    link = models.URLField(blank=False, null=False,
-                           verbose_name="Portfolio Link")
-
-    def __str__(self):
-        return self.category
-
-
 class PortfolioShowcase(models.Model):
     aboutProduct = models.TextField(
         null=False, blank=False, verbose_name="About Product")
@@ -40,6 +27,20 @@ class PortfolioShowcase(models.Model):
         return self.link
 
 
+class PortfolioProduct(models.Model):
+    # category = models.CharField(
+    #     max_length=255, null=False, blank=False, verbose_name="Category", choices=(('Design', 'Design'), ('Development',
+    #   'Development'), ('Design & Development', 'Design & Development'), ('Growth', 'Growth')))
+    technology = models.CharField(max_length=255, null=False, blank=False)
+    about = models.TextField(
+        null=False, blank=False, verbose_name="About Product")
+    portfolio = models.ForeignKey(
+        PortfolioShowcase, related_name='portfolio', on_delete=models.CASCADE)
+
+    # def __str__(self):
+    # return self.category
+
+
 class Services(models.Model):
     category = models.CharField(max_length=256, choices=(('Design', 'Design'), ('Development',
                                                                                 'Development'), ('Design & Development', 'Design & Development'), ('Growth', 'Growth')), null=False, blank=False)
@@ -49,3 +50,12 @@ class Services(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SubServices(models.Model):
+    Services = models.ForeignKey(
+        Services, related_name='sub', on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(
+        PortfolioProduct, related_name='sub', on_delete=models.CASCADE)
+    portfolio_showcase = models.ForeignKey(
+        PortfolioShowcase, related_name='sub', on_delete=models.CASCADE)

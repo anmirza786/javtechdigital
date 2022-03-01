@@ -4,7 +4,7 @@ from .models import (
     Proposal,
     PortfolioProduct,
     PortfolioShowcase,
-    Services
+    Services, SubServices
 )
 
 admin.site.register(PortfolioProduct)
@@ -22,3 +22,4 @@ class ServicesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Services, ServicesAdmin)
+admin.site.register(SubServices)

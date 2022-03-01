@@ -5,12 +5,14 @@ from rest_framework.response import Response
 from .serializers import (
     ProposalSerializer,
     PortfolioProductSerializer,
-    PortfolioShowcaseSerializer
+    PortfolioShowcaseSerializer,
+    ServicesSerializer
 )
 from .models import (
     Proposal,
     PortfolioProduct,
-    PortfolioShowcase
+    PortfolioShowcase,
+    Services
 )
 
 
@@ -43,3 +45,11 @@ class PortfolioShowcaseListApiView(ListAPIView):
 
     def get_queryset(self):
         return PortfolioShowcase.objects.all()
+
+
+class ServicesListApiView(ListAPIView):
+    permision_classes = (permissions.AllowAny,)
+    serializer_class = ServicesSerializer
+
+    def get_queryset(self):
+        return Services.objects.all()

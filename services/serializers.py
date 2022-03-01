@@ -4,7 +4,8 @@ from rest_framework import serializers
 from .models import (
     Proposal,
     PortfolioShowcase,
-    PortfolioProduct
+    PortfolioProduct,
+    Services
 )
 
 
@@ -23,4 +24,10 @@ class PortfolioShowcaseSerializer(serializers.ModelSerializer):
 class PortfolioProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = PortfolioProduct
+        fields = '__all__'
+
+
+class ServicesSerializer(serializers.ModelField):
+    class Meta:
+        model = Services
         fields = '__all__'
