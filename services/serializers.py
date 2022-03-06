@@ -27,7 +27,26 @@ class PortfolioProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ServicesSerializer(serializers.ModelField):
+class ServiceSerializer(serializers.ModelField):
     class Meta:
         model = Services
         fields = '__all__'
+
+
+class ServicesSerializer(serializers.ModelSerializer):
+    # language = Services(many=True, read_only=True)
+    # print(course)
+
+    class Meta:
+        model = Services
+        fields = [
+            'id',
+            'category',
+            'title',
+            'description',
+            'slug',
+        ]
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }

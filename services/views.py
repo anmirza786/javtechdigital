@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework import permissions
 from rest_framework.response import Response
 from .serializers import (
@@ -47,9 +47,21 @@ class PortfolioShowcaseListApiView(ListAPIView):
         return PortfolioShowcase.objects.all()
 
 
-class ServicesListApiView(ListAPIView):
+class ServiceListApiView(ListAPIView):
     permision_classes = (permissions.AllowAny,)
     serializer_class = ServicesSerializer
+    # http_method_names = ['get']
+
+    def get_queryset(self):
+        return Services.objects.all()
+
+# class
+
+
+class ServicesListApiView(RetrieveAPIView):
+    permision_classes = (permissions.AllowAny,)
+    serializer_class = ServicesSerializer
+    lookup_field = 'slug'
 
     def get_queryset(self):
         return Services.objects.all()
