@@ -1,7 +1,9 @@
+from asyncore import read
 from django.db import models
 from django.db.models import fields
 from rest_framework import serializers
 from .models import (
+    Category,
     Proposal,
     PortfolioShowcase,
     PortfolioProduct,
@@ -27,26 +29,19 @@ class PortfolioProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ServiceSerializer(serializers.ModelField):
+class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Services
         fields = '__all__'
 
 
-class ServicesSerializer(serializers.ModelSerializer):
-    # language = Services(many=True, read_only=True)
-    # print(course)
+class CategorySerializer(serializers.ModelSerializer):
+    services = ServiceSerializer(read_only=True, many=True)
 
     class Meta:
-        model = Services
+        model = Category
         fields = [
-            'id',
             'category',
-            'title',
-            'description',
-            'slug',
+            'category_description',
+            'services'
         ]
-        lookup_field = 'slug'
-        extra_kwargs = {
-            'url': {'lookup_field': 'slug'}
-        }

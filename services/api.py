@@ -1,9 +1,9 @@
 from django.urls import path, include
 from .views import (
+    CategoryListApiView,
     ProposalCreateApiView,
     PortfolioProductListApiView,
     PortfolioShowcaseListApiView,
-    ServicesListApiView,
     ServiceListApiView
 )
 urlpatterns = [
@@ -13,5 +13,6 @@ urlpatterns = [
     path('portfolio/showcase/', PortfolioShowcaseListApiView.as_view()),
     path('portfolio/showcase/', PortfolioShowcaseListApiView.as_view()),
     path('portfolio/showcase/', PortfolioShowcaseListApiView.as_view()),
-    path('<slug:slug>/', ServicesListApiView.as_view()),
+    path('service/', ServiceListApiView.as_view()),
+    path('category/', CategoryListApiView.as_view()),
 ]

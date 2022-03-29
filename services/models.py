@@ -42,20 +42,26 @@ class PortfolioProduct(models.Model):
 
 
 class Services(models.Model):
-    category = models.CharField(max_length=256, choices=(('Design', 'Design'), ('Development',
-                                                                                'Development'), ('Design & Development', 'Design & Development'), ('Growth', 'Growth')), null=False, blank=False)
+
     title = models.CharField(max_length=256, null=False, blank=False)
     description = models.TextField(null=False, blank=False)
-    slug = models.SlugField(unique=True)
+    # slug = models.SlugField(unique=True)
+    # portfolio = models.ForeignKey(
+    #     PortfolioProduct, related_name='sub', on_delete=models.CASCADE)
+    # portfolio_showcase = models.ForeignKey(
+    #     PortfolioShowcase, related_name='sub', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 
-class SubServices(models.Model):
-    Services = models.ForeignKey(
-        Services, related_name='sub', on_delete=models.CASCADE)
-    portfolio = models.ForeignKey(
-        PortfolioProduct, related_name='sub', on_delete=models.CASCADE)
-    portfolio_showcase = models.ForeignKey(
-        PortfolioShowcase, related_name='sub', on_delete=models.CASCADE)
+class Category(models.Model):
+    category = models.CharField(max_length=256, choices=(('Design', 'Design'), ('Development',
+                                                                                'Development'), ('Design & Development', 'Design & Development'), ('Growth', 'Growth')), null=False, blank=False)
+    category_description = models.TextField(null=False, blank=False)
+    services = models.ManyToManyField(Services)
+
+    def __str__(self):
+        return self.category
+
+# class SubServices(models.Model):

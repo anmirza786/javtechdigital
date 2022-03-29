@@ -45,7 +45,7 @@ class OurTeamAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-admin.site.register(OurTeam, OurTeamAdmin)
+# admin.site.register(OurTeam, OurTeamAdmin)
 
 
 class TestimonialAdmin(admin.ModelAdmin):
@@ -53,7 +53,7 @@ class TestimonialAdmin(admin.ModelAdmin):
     search_fields = ['home_display']
 
 
-admin.site.register(Testimonial, TestimonialAdmin)
+# admin.site.register(Testimonial, TestimonialAdmin)
 
 
 admin.site.register(Product)

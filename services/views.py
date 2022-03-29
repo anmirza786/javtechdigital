@@ -3,12 +3,14 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
 from rest_framework import permissions
 from rest_framework.response import Response
 from .serializers import (
+    CategorySerializer,
     ProposalSerializer,
     PortfolioProductSerializer,
     PortfolioShowcaseSerializer,
-    ServicesSerializer
+    ServiceSerializer,
 )
 from .models import (
+    Category,
     Proposal,
     PortfolioProduct,
     PortfolioShowcase,
@@ -49,7 +51,7 @@ class PortfolioShowcaseListApiView(ListAPIView):
 
 class ServiceListApiView(ListAPIView):
     permision_classes = (permissions.AllowAny,)
-    serializer_class = ServicesSerializer
+    serializer_class = ServiceSerializer
     # http_method_names = ['get']
 
     def get_queryset(self):
@@ -58,10 +60,9 @@ class ServiceListApiView(ListAPIView):
 # class
 
 
-class ServicesListApiView(RetrieveAPIView):
+class CategoryListApiView(ListAPIView):
     permision_classes = (permissions.AllowAny,)
-    serializer_class = ServicesSerializer
-    lookup_field = 'slug'
+    serializer_class = CategorySerializer
 
     def get_queryset(self):
-        return Services.objects.all()
+        return Category.objects.all()
